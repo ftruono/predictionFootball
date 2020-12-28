@@ -31,4 +31,4 @@ jobs:
       with:
         app-name: 'predictionbot3'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b6cb5fb5b47c454697eca7d0680e5d6e }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_36f3a50a6ba646cfa206ad80695e36ff }}
