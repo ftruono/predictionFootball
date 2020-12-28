@@ -1,5 +1,4 @@
 botbuilder-core>=4.7.0
-asyncio>=3.4
 aiohttp
 pandas==1.1.3
 azureml-sdk==1.19.0
