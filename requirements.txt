@@ -1,5 +1,6 @@
 botbuilder-core>=4.7.0
 aiohttp
-pandas==1.1.3
-azureml-sdk==1.19.0
-numpy==1.19.2
+pandas
+pyarrow>=0.16.0
+azureml-core
+azureml-dataprep
