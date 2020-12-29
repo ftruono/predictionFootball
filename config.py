@@ -9,7 +9,7 @@ class DefaultConfig:
 
     PORT = 3978
     APP_ID = os.environ.get("MicrosoftAppId", "d85be113-3517-4cc4-864e-fbfde769ef95")
-    APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "H7.~ODxEa46~L4wu5c8uKM3P1~Rx4BV.m_")
+    APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "cc16b0d4-c880-4a11-a650-3bcfb067c6d5")
 
     SUBSCRIPTION_ID = '2853834e-9533-4f4f-80cb-9fba1589b89c'
     RESOURCE_GROUP = 'DefaultResourceGroup-WEU'
