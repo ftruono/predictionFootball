@@ -27,8 +27,10 @@ CONFIG = DefaultConfig()
 # See https://aka.ms/about-bot-adapter to learn more about how bots work.
 SETTINGS = BotFrameworkAdapterSettings(CONFIG.APP_ID, CONFIG.APP_PASSWORD)
 ADAPTER = BotFrameworkAdapter(SETTINGS)
-workspace = Workspace(config.DefaultConfig.SUBSCRIPTION_ID, config.DefaultConfig.RESOURCE_GROUP,
-                      config.DefaultConfig.WORKSPACE_NAME)
+
+
+# workspace = Workspace(config.DefaultConfig.SUBSCRIPTION_ID, config.DefaultConfig.RESOURCE_GROUP,
+# config.DefaultConfig.WORKSPACE_NAME)
 
 
 # Catch-all for errors.
@@ -59,22 +61,22 @@ async def on_error(context: TurnContext, error: Exception):
         await context.send_activity(trace_activity)
 
 
-def load_csv() -> DataFrame:
-    dataset = Dataset.get_by_name(workspace, name=config.DefaultConfig.FILE_NAME)
-    return dataset.to_pandas_dataframe()
+# def load_csv() -> DataFrame:
+#   dataset = Dataset.get_by_name(workspace, name=config.DefaultConfig.FILE_NAME)
+#  return dataset.to_pandas_dataframe()
 
 
-def download_json_config():
-    dataset = Dataset.get_by_name(workspace, name='metadata')
-    dataset.download(target_path="resource", overwrite=True)
+# def download_json_config():
+#   dataset = Dataset.get_by_name(workspace, name='metadata')
+#  dataset.download(target_path="resource", overwrite=True)
 
 
 ADAPTER.on_turn_error = on_error
 
 # Create the Bot
 
-download_json_config()
-BOT = MyBot(load_csv())
+# download_json_config()
+BOT = MyBot(None)
 
 
 # Listen for incoming requests on /api/messages
@@ -96,15 +98,15 @@ async def messages(req: Request) -> Response:
     except Exception as exception:
         raise exception
 
+
 def init_func(argv):
     APP = web.Application(middlewares=[aiohttp_error_middleware])
     APP.router.add_post("/api/messages", messages)
     return APP
 
 
-
 if __name__ == "__main__":
-    APP=init_func(None)
+    APP = init_func(None)
     try:
         web.run_app(APP, host="localhost", port=CONFIG.PORT)
     except Exception as error:

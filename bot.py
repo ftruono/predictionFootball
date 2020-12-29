@@ -21,8 +21,8 @@ class MyBot(ActivityHandler):
         super().__init__()
         self.csvData = csvData
         self.extractorInfo = ExtractorInfo(self.csvData)
-        with open('resource/metadata.json') as f:
-            self.json_data = json.load(f)
+        # with open('resource/metadata.json') as f:
+        #   self.json_data = json.load(f)
 
     async def on_message_activity(self, turn_context: TurnContext):
         if turn_context.activity.value:

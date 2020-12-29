@@ -10,7 +10,7 @@ class DefaultConfig:
 
     PORT = 8000
     APP_ID = "d85be113-3517-4cc4-864e-fbfde769ef95"
-    APP_PASSWORD = "q_GW.isZYCoGq628I6~.B1EnUa~ZtZT88b"
+    APP_PASSWORD = "x51~S2t3.InM.SOw5o~E-Slp.4xs3.HSgc"
 
     SUBSCRIPTION_ID = '2853834e-9533-4f4f-80cb-9fba1589b89c'
     RESOURCE_GROUP = 'resourcegrouplinux'
