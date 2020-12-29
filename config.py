@@ -9,8 +9,8 @@ class DefaultConfig:
     """ Bot Configuration """
 
     PORT = 8000
-    APP_ID = "d85be113-3517-4cc4-864e-fbfde769ef95"
-    APP_PASSWORD = "x51~S2t3.InM.SOw5o~E-Slp.4xs3.HSgc"
+    APP_ID = "20812a0e-8642-4bf6-b067-af92a6e6c55c"
+    APP_PASSWORD = "mYVl3IPH2E~g~g~sY.TWo.p_Mb8eZw7LG1"
 
     SUBSCRIPTION_ID = '2853834e-9533-4f4f-80cb-9fba1589b89c'
     RESOURCE_GROUP = 'resourcegrouplinux'
