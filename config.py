@@ -13,7 +13,7 @@ class DefaultConfig:
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
 
     SUBSCRIPTION_ID = os.environ.get("SubscriptionId", '2853834e-9533-4f4f-80cb-9fba1589b89c')
-    RESOURCE_GROUP = os.environ.get("ResourceGroup", "")
+    RESOURCE_GROUP = os.environ.get("ResourceGroup", "DefaultResourceGroup-WEU")
     WORKSPACE_NAME = os.environ.get("WorkspaceName", "ML22")
     FILE_NAME = os.environ.get("csvFileName", "pre")
 
