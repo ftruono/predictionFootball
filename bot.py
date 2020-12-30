@@ -21,8 +21,8 @@ class MyBot(ActivityHandler):
         super().__init__()
         self.csvData = csvData
         self.extractorInfo = ExtractorInfo(self.csvData)
-        # with open('resource/metadata.json') as f:
-        #   self.json_data = json.load(f)
+        with open('resource/metadata.json') as f:
+            self.json_data = json.load(f)
 
     async def on_message_activity(self, turn_context: TurnContext):
         if turn_context.activity.value:
@@ -61,8 +61,6 @@ class MyBot(ActivityHandler):
         elif (turn_context.activity.text == '/predict'):
             response = Activity(type='message', attachments=[create_adaptive_card(self)])
             await turn_context.send_activity(response)
-
-        # await turn_context.send_activity(f"You said '{turn_context.activity.text}'")
 
     async def on_members_added_activity(
             self,

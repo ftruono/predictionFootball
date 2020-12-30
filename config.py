@@ -4,6 +4,7 @@
 
 import os
 
+
 class DefaultConfig:
     """ Bot Configuration """
 
@@ -11,10 +12,10 @@ class DefaultConfig:
     APP_ID = os.environ.get("MicrosoftAppId", "")
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
 
-    SUBSCRIPTION_ID = '2853834e-9533-4f4f-80cb-9fba1589b89c'
-    RESOURCE_GROUP = 'DefaultResourceGroup-WEU'
-    WORKSPACE_NAME = 'ML22'
-    FILE_NAME='pre'
+    SUBSCRIPTION_ID = os.environ.get("SubscriptionId", '2853834e-9533-4f4f-80cb-9fba1589b89c')
+    RESOURCE_GROUP = os.environ.get("ResourceGroup", "")
+    WORKSPACE_NAME = os.environ.get("WorkspaceName", "ML22")
+    FILE_NAME = os.environ.get("csvFileName", "pre")
 
-    JSON_FILE_NAME='metadata'
-    MODEL_LINK_PREDICTION='http://2e7611b0-9187-498c-b5c1-b2c2df00254f.westeurope.azurecontainer.io/score'
+    JSON_FILE_NAME = os.environ.get("jsonFileName", 'metadata')
+    MODEL_LINK_PREDICTION = os.environ.get("modelLink", "")
