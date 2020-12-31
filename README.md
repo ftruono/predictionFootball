@@ -1,9 +1,8 @@
-# echobot
+# Prediction Football Bot
 
-bot echo
+This bot use custom deployed ml to predict the match of ligue Serie A
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
-
+This bot has been created using [Bot Framework](https://dev.botframework.com) and use resource of azure ml
 ## Prerequisites
 
 This sample **requires** prerequisites in order to run.
@@ -12,6 +11,11 @@ This sample **requires** prerequisites in order to run.
 
 ## Running the sample
 - Run `pip install -r requirements.txt` to install all dependencies
+- Set your tenant id, in file config.py TENANT_ID
+- Add in ml studio, two file: one tabular mode (pre.csv) and metadata.json. The first one contains the pre-processed csv, the second one contains
+the encoded list team. If you want customize this property is necessary modify config.py
+- Deploy the model on machine learning studio. Create an environment constant called modelLink that contains the deployed model
+- To login in ml resource is necessary create an user on Azure Active Directory and link to machine learning resource to sum up update the two environment constant: clientId, clientSecret  
 - Run `python app.py`
 
 
@@ -25,18 +29,3 @@ This sample **requires** prerequisites in order to run.
 
 - Launch Bot Framework Emulator
 - Enter a Bot URL of `http://localhost:3978/api/messages`
-
-
-## Further reading
-
-- [Bot Framework Documentation](https://docs.botframework.com)
-- [Bot Basics](https://docs.microsoft.com/azure/bot-service/bot-builder-basics?view=azure-bot-service-4.0)
-- [Dialogs](https://docs.microsoft.com/azure/bot-service/bot-builder-concept-dialog?view=azure-bot-service-4.0)
-- [Gathering Input Using Prompts](https://docs.microsoft.com/azure/bot-service/bot-builder-prompts?view=azure-bot-service-4.0&tabs=csharp)
-- [Activity processing](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-activity-processing?view=azure-bot-service-4.0)
-- [Azure Bot Service Introduction](https://docs.microsoft.com/azure/bot-service/bot-service-overview-introduction?view=azure-bot-service-4.0)
-- [Azure Bot Service Documentation](https://docs.microsoft.com/azure/bot-service/?view=azure-bot-service-4.0)
-- [Azure CLI](https://docs.microsoft.com/cli/azure/?view=azure-cli-latest)
-- [Azure Portal](https://portal.azure.com)
-- [Language Understanding using LUIS](https://docs.microsoft.com/azure/cognitive-services/luis/)
-- [Channels and Bot Connector Service](https://docs.microsoft.com/azure/bot-service/bot-concepts?view=azure-bot-service-4.0)
