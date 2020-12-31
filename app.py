@@ -7,6 +7,8 @@ from datetime import datetime
 
 from aiohttp import web
 from aiohttp.web import Request, Response, json_response
+from azureml.core import Workspace, Dataset
+from azureml.core.authentication import ServicePrincipalAuthentication
 from botbuilder.core import (
     BotFrameworkAdapterSettings,
     TurnContext,
@@ -19,7 +21,6 @@ from pandas import DataFrame
 import config
 from bot import MyBot
 from config import DefaultConfig
-from azureml.core import Workspace, Dataset
 
 CONFIG = DefaultConfig()
 
@@ -27,8 +28,11 @@ CONFIG = DefaultConfig()
 SETTINGS = BotFrameworkAdapterSettings(CONFIG.APP_ID, CONFIG.APP_PASSWORD)
 ADAPTER = BotFrameworkAdapter(SETTINGS)
 
+spa = ServicePrincipalAuthentication(tenant_id=CONFIG.TENANT_ID,  # tenantID
+                                     service_principal_id=CONFIG.CLIENT_ID,  # clientId
+                                     service_principal_password=CONFIG.CLIENT_SECRET)  # clientSecret
 workspace = Workspace(config.DefaultConfig.SUBSCRIPTION_ID, config.DefaultConfig.RESOURCE_GROUP,
-                      config.DefaultConfig.WORKSPACE_NAME)
+                      config.DefaultConfig.WORKSPACE_NAME, auth=spa)
 
 
 # Catch-all for errors.
