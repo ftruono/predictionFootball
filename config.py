@@ -24,3 +24,9 @@ class DefaultConfig:
     #Auth Configuration
     CLIENT_ID=os.environ.get("ClientId","8e8ad129-6308-4a63-984f-f9f117388e62")
     CLIENT_SECRET=os.environ.get("ClientSecret","")
+
+    #LUIS Configuration
+    LUIS_APPID=os.environ("LuisAppId","")
+    LUIS_KEY1=os.environ.get("LuisKey1","")
+    LUIS_KEY2 = os.environ.get("LuisKey2", "")
+

@@ -21,6 +21,7 @@ from pandas import DataFrame
 import config
 from bot import MyBot
 from config import DefaultConfig
+from util.LuisCollaborator import LuisCollaborator
 
 CONFIG = DefaultConfig()
 
@@ -73,7 +74,7 @@ def download_json_config():
 ADAPTER.on_turn_error = on_error
 
 # Create the Bot
-
+luis=LuisCollaborator(CONFIG.LUIS_APPID, CONFIG.LUIS_KEY1, CONFIG.LUIS_KEY2)
 download_json_config()
 BOT = MyBot(load_csv())
 
