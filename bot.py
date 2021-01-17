@@ -3,12 +3,10 @@
 
 import json
 
-import requests
 from botbuilder.core import ActivityHandler, TurnContext, CardFactory
 from botbuilder.schema import ChannelAccount, Attachment, Activity
 from pandas import DataFrame
 
-import config
 from dialogs.adaptive_card_predict import ADAPTIVE_CARD_CONTENT
 from util.ExtractorInfo import ExtractorInfo
 from util.LuisCollaborator import LuisCollaborator
@@ -29,6 +27,7 @@ class MyBot(ActivityHandler):
             self.json_data = json.load(f)
 
         self.prediction = PredictionCollaborator(self.json_data, self.extractor_info)
+        self.luis = LuisCollaborator()
 
     async def on_message_activity(self, turn_context: TurnContext):
         if turn_context.activity.value:
@@ -40,17 +39,13 @@ class MyBot(ActivityHandler):
                 await  turn_context.send_activity("Manca una squadra!")
 
         if (turn_context.activity.text == '/list'):
-            all_teams = load_teams(self)
-            str = ""
-            for t in all_teams:
-                str += t + "\n\n"
-            await  turn_context.send_activity(str)
+            await  turn_context.send_activity(self.load_teams())
         elif (turn_context.activity.text == '/predict'):
-            response = Activity(type='message', attachments=[create_adaptive_card(self)])
+            response = Activity(type='message', attachments=[self.create_adaptive_card()])
             await turn_context.send_activity(response)
         else:
-
-    # TODO call on luis-collaborator
+            intent, entities = self.luis.analyze_message(turn_context.activity.text)
+            await turn_context.send_activity(self.handle_luis_intent(intent, entities))
 
     async def on_members_added_activity(
             self,
@@ -63,10 +58,23 @@ class MyBot(ActivityHandler):
                 await turn_context.send_activity(
                     "Benvenuto sul bot \n\n Per vedere la lista delle squadre: /list \n\n Per eseguire una predizione /predict")
 
+    def create_adaptive_card(self) -> Attachment:
+        return CardFactory.adaptive_card(ADAPTIVE_CARD_CONTENT)
 
-def create_adaptive_card(self) -> Attachment:
-    return CardFactory.adaptive_card(ADAPTIVE_CARD_CONTENT)
+    def load_teams(self):
+        all_teams = self.csvData.HomeTeam.unique()
+        str = ""
+        for t in all_teams:
+            str += t + "\n\n"
+        return str
 
+    def handle_luis_intent(self, intent, entities):
+        if (intent == 'list'):
+            return self.load_teams()
+        elif (intent == 'predict'):
+            if (entities is None):
+                return "Manca una squadra"
+            return self.prediction.predict_match(entities[0],
+                                                 entities[1])
+        elif (intent == 'stats'):
 
-def load_teams(self):
-    return self.csvData.HomeTeam.unique()

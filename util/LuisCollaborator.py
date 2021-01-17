@@ -1,29 +1,12 @@
 import requests
 
+import config
+
 
 class LuisCollaborator:
-    app_id = ""
-    prediction_key = ""
-
-    def __init__(self, app_id, prediction_key) -> None:
-        self.app_id = app_id
-        self.prediction_key = prediction_key
 
     def analyze_message(self, msg):
         try:
-
-            ##########
-            # Values to modify.
-
-            # YOUR-APP-ID: The App ID GUID found on the www.luis.ai Application Settings page.
-            appId = 'YOUR-APP-ID'
-
-            # YOUR-PREDICTION-KEY: Your LUIS authoring key, 32 character value.
-            prediction_key = 'YOUR-PREDICTION-KEY'
-
-            # YOUR-PREDICTION-ENDPOINT: Replace with your authoring key endpoint.
-            # For example, "https://westus.api.cognitive.microsoft.com/"
-            prediction_endpoint = 'https://YOUR-PREDICTION-ENDPOINT/'
             # The headers to use in this REST call.
             headers = {
             }
@@ -36,17 +19,27 @@ class LuisCollaborator:
                 'show-all-intents': 'true',
                 'spellCheck': 'false',
                 'staging': 'false',
-                'subscription-key': self.prediction_key
+                'subscription-key': config.DefaultConfig.LUIS_KEY1
             }
 
             response = requests.get(
-                f'{prediction_endpoint}luis/prediction/v3.0/apps/{self.app_id}/slots/production/predict',
+                f'{config.DefaultConfig.LUIS_ENDPOINT}luis/prediction/v3.0/apps/{config.DefaultConfig.LUIS_APPID}/slots/production/predict',
                 headers=headers, params=params)
 
-            print(response.json())
-            return response.json()
+            json_result = response.json()
+            return json_result["prediction"]["topIntent"], self.__analyze_entities__(
+                json_result["prediction"]["entities"])
 
 
         except Exception as e:
             # Display the error string.
             print(f'{e}')
+
+    def __analyze_entities__(self, entities):
+        if entities:
+            if "Teams" in entities and len(entities["Teams"]) > 1:
+                return entities["Teams"][0], entities["Teams"][1]
+            elif "number" in entities:
+                return entities["number"][0]
+        else:
+            return {}

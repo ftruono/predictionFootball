@@ -23,10 +23,11 @@ class DefaultConfig:
 
     #Auth Configuration
     CLIENT_ID=os.environ.get("ClientId","8e8ad129-6308-4a63-984f-f9f117388e62")
-    CLIENT_SECRET=os.environ.get("ClientSecret","")
+    CLIENT_SECRET=os.environ.get("ClientSecret","H~2-KInUEysuHqq19D33noyt_L0N~mBN.J")
 
     #LUIS Configuration
-    LUIS_APPID=os.environ("LuisAppId","")
-    LUIS_KEY1=os.environ.get("LuisKey1","")
+    LUIS_APPID=os.environ.get("LuisAppId","a0edec6c-a603-477b-8285-15bbe0915ece")
+    LUIS_KEY1=os.environ.get("LuisKey1","e1eaf55999604f2eb4db53b9c6d53a43")
     LUIS_KEY2 = os.environ.get("LuisKey2", "")
+    LUIS_ENDPOINT=os.environ.get("LuisEndPoint","https://luisservice0.cognitiveservices.azure.com/")
 
