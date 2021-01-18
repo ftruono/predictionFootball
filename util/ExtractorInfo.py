@@ -2,6 +2,7 @@ import datetime
 
 import pandas as pd
 from pandas import DataFrame
+from tabulate import tabulate
 
 
 class ExtractorInfo:
@@ -75,13 +76,14 @@ class ExtractorInfo:
         if (len(year) < 4):
             year = '20' + year[-2:]
         year = int(year)
-        down_year = datetime.datetime(year=year, month=1, day=1)
+        down_year = datetime.datetime(year=year, month=8, day=1)
         up_year = datetime.datetime(year=year + 1, month=7, day=31)
 
         self.__csvData__["Date"] = pd.to_datetime(self.__csvData__['Date'])
-        restricted_year = self.__csvData__.loc[6
+        restricted_year = self.__csvData__.loc[
             (self.__csvData__["Date"] > down_year) & (self.__csvData__["Date"] < up_year)]
-
+        if restricted_year.empty:
+            return "Anno non trovato"
         restricted_year['Home_Points'] = restricted_year.apply(
             lambda row: 3 if row['FTR'] == 'H' else 0 if row['FTR'] == 'A' else 1,
             axis=1)
@@ -107,14 +109,16 @@ class ExtractorInfo:
         away = away.groupby('AwayTeam').agg(sum)
         home.rename(columns={'HomeTeam': 'Team', 'Home_Points': 'Point'}, inplace=True)
         away.rename(columns={'AwayTeam': 'Team', 'Away_Points': 'Point'}, inplace=True)
-
         overall = home + away
+        # overall["Teams"]=restricted_year.groupby("HomeTeam")["HomeTeam"]
         overall["Home_Points"] = home["Point"]
         overall["Away_Points"] = away["Point"]
         overall["goal_d_total"] = goal_home_d + goal_away_d
         overall["goal_s_total"] = goal_home_s + goal_away_s
-
         overall["Matchs"] = total_home + total_away
 
         overall = overall.sort_values(by=['Point'], ascending=False)
-        return overall
+        return self.__format_stats__(overall)
+
+    def __format_stats__(self, all: DataFrame):
+        return tabulate(all, headers=["P", "PC", "FC", "GF", "GS", "PG"], tablefmt="github")

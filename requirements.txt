@@ -4,3 +4,4 @@ pandas
 pyarrow>=0.16.0
 azureml-core
 azureml-dataprep
+tabulate

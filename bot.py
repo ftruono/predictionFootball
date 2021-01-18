@@ -80,7 +80,7 @@ class MyBot(ActivityHandler):
             return self.prediction.predict_match(entities[0],
                                                  entities[1])
         elif (intent == 'stats'):
-            if (not entities):
+            if (not entities and entities>3000):
                 return "Formato anno non corretto"
             return self.extractor_info.get_stats(str(entities))
         elif (intent == 'matchs'):
