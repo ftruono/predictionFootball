@@ -73,7 +73,7 @@ def download_json_config():
 ADAPTER.on_turn_error = on_error
 
 # Create the Bot
-#download_json_config()
+download_json_config()
 BOT = MyBot(load_csv())
 
 

@@ -14,12 +14,12 @@ class DefaultConfig:
     #ML-Configuration
     TENANT_ID=os.environ.get("TenantId","c30767db-3dda-4dd4-8a4d-097d22cb99d3")
     SUBSCRIPTION_ID = os.environ.get("SubscriptionId", '2853834e-9533-4f4f-80cb-9fba1589b89c')
-    RESOURCE_GROUP = os.environ.get("ResourceGroup", "f.truono5_rg_Linux_centralus")
+    RESOURCE_GROUP = os.environ.get("ResourceGroup", "f.truono5_rg_Linux_westeurope")
     WORKSPACE_NAME = os.environ.get("WorkspaceName", "ML22")
 
     FILE_NAME = os.environ.get("csvFileName", "pre")
     JSON_FILE_NAME = os.environ.get("jsonFileName", 'metadata')
-    MODEL_LINK_PREDICTION = os.environ.get("modelLink", "")
+    MODEL_LINK_PREDICTION = os.environ.get("ModelLink", "")
 
     #Auth Configuration
     CLIENT_ID=os.environ.get("ClientId","8e8ad129-6308-4a63-984f-f9f117388e62")
