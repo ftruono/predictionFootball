@@ -14,7 +14,7 @@ class PredictionCollaborator:
         self.extractor_info = extractor_info
 
     def predict_match(self, home, away):
-        home, away = self.__format_teams__(home, away)
+        home, away = self.__format_teams__(home[0], away[0])
         self.extractor_info.set_away(away)
         self.extractor_info.set_home(home)
         error = self.extractor_info.check_if_is_a_valids_teams()

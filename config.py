@@ -31,3 +31,7 @@ class DefaultConfig:
     LUIS_KEY2 = os.environ.get("LuisKey2", "")
     LUIS_ENDPOINT=os.environ.get("LuisEndPoint","https://luisservice0.cognitiveservices.azure.com/")
 
+    #BING Configuration
+    BING_ENDPOINT=os.environ.get("BingEndPoint","https://api.bing.microsoft.com/v7.0/search")
+    BING_KEY=os.environ.get("BingKey","5a48c12dbe45485da349d87e1af0e4a9")
+

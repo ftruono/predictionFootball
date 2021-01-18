@@ -6,34 +6,24 @@ import config
 class LuisCollaborator:
 
     def analyze_message(self, msg):
-        try:
-            # The headers to use in this REST call.
-            headers = {
-            }
+        # The URL parameters to use in this REST call.
+        params = {
+            'query': msg,
+            'timezoneOffset': '0',
+            'verbose': 'true',
+            'show-all-intents': 'true',
+            'spellCheck': 'false',
+            'staging': 'false',
+            'subscription-key': config.DefaultConfig.LUIS_KEY1
+        }
 
-            # The URL parameters to use in this REST call.
-            params = {
-                'query': msg,
-                'timezoneOffset': '0',
-                'verbose': 'true',
-                'show-all-intents': 'true',
-                'spellCheck': 'false',
-                'staging': 'false',
-                'subscription-key': config.DefaultConfig.LUIS_KEY1
-            }
+        response = requests.get(
+            f'{config.DefaultConfig.LUIS_ENDPOINT}luis/prediction/v3.0/apps/{config.DefaultConfig.LUIS_APPID}/slots/production/predict',
+            headers={}, params=params)
 
-            response = requests.get(
-                f'{config.DefaultConfig.LUIS_ENDPOINT}luis/prediction/v3.0/apps/{config.DefaultConfig.LUIS_APPID}/slots/production/predict',
-                headers=headers, params=params)
-
-            json_result = response.json()
-            return json_result["prediction"]["topIntent"], self.__analyze_entities__(
-                json_result["prediction"]["entities"])
-
-
-        except Exception as e:
-            # Display the error string.
-            print(f'{e}')
+        json_result = response.json()
+        return json_result["prediction"]["topIntent"], self.__analyze_entities__(
+            json_result["prediction"]["entities"])
 
     def __analyze_entities__(self, entities):
         if entities:

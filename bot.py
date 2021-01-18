@@ -8,6 +8,7 @@ from botbuilder.schema import ChannelAccount, Attachment, Activity
 from pandas import DataFrame
 
 from dialogs.adaptive_card_predict import ADAPTIVE_CARD_CONTENT
+from util.BingCollaborator import BingCollaborator
 from util.ExtractorInfo import ExtractorInfo
 from util.LuisCollaborator import LuisCollaborator
 from util.PredictionCollaborator import PredictionCollaborator
@@ -18,6 +19,7 @@ class MyBot(ActivityHandler):
     extractor_info: ExtractorInfo
     luis: LuisCollaborator
     prediction: PredictionCollaborator
+    bing: BingCollaborator
 
     def __init__(self, csvData: DataFrame):
         super().__init__()
@@ -28,6 +30,7 @@ class MyBot(ActivityHandler):
 
         self.prediction = PredictionCollaborator(self.json_data, self.extractor_info)
         self.luis = LuisCollaborator()
+        self.bing = BingCollaborator()
 
     async def on_message_activity(self, turn_context: TurnContext):
         if turn_context.activity.value:
@@ -77,4 +80,10 @@ class MyBot(ActivityHandler):
             return self.prediction.predict_match(entities[0],
                                                  entities[1])
         elif (intent == 'stats'):
-
+            if (not entities):
+                return "Formato anno non corretto"
+            return self.extractor_info.get_stats(str(entities))
+        elif (intent == 'matchs'):
+            return self.bing.get_link_matchs()
+        else:
+            return "LUIS non ha riconosciuto nessun pattern nella tua frase!"
