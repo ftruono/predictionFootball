@@ -40,7 +40,7 @@ class MyBot(ActivityHandler):
                 await turn_context.send_activity(result)
             else:
                 await  turn_context.send_activity("Manca una squadra!")
-
+            return {}
         if (turn_context.activity.text == '/list'):
             await  turn_context.send_activity(self.load_teams())
         elif (turn_context.activity.text == '/predict'):
@@ -75,12 +75,12 @@ class MyBot(ActivityHandler):
         if (intent == 'list'):
             return self.load_teams()
         elif (intent == 'predict'):
-            if (entities is None):
+            if (entities is None or not entities):
                 return "Manca una squadra"
             return self.prediction.predict_match(entities[0],
                                                  entities[1])
         elif (intent == 'stats'):
-            if (not entities and entities>3000):
+            if (not entities or entities > 3000):
                 return "Formato anno non corretto"
             return self.extractor_info.get_stats(str(entities))
         elif (intent == 'matchs'):

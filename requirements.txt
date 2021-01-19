@@ -1,7 +1,7 @@
 botbuilder-core>=4.7.0
 aiohttp
 pandas
+tabulate
 pyarrow>=0.16.0
 azureml-core
 azureml-dataprep
-tabulate

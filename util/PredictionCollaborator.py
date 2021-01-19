@@ -14,15 +14,18 @@ class PredictionCollaborator:
         self.extractor_info = extractor_info
 
     def predict_match(self, home, away):
-        home, away = self.__format_teams__(home[0], away[0])
+        if (isinstance(home, str) and isinstance(away, str)):
+            home, away = self.__format_teams__(home, away)
+        else:
+            home, away = self.__format_teams__(home[0], away[0])
         self.extractor_info.set_away(away)
         self.extractor_info.set_home(home)
         error = self.extractor_info.check_if_is_a_valids_teams()
         if (len(error["validation"]) > 0):
-            str = ""
+            validation_message = ""
             for err in error["validation"]:
-                str += "Squadra: " + err + " non valida \n\n"
-            return str
+                validation_message += "Squadra: " + err + " non valida \n\n"
+            return validation_message
         else:
             rate_home, rate_away, shot_home, shot_away, shot_target_home, shot_target_away, ph_home, ph_away = self.extractor_info.calculate_features()
             payload = {
